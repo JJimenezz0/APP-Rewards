@@ -7,9 +7,10 @@ CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     user_email VARCHAR(100) NOT NULL UNIQUE,
     user_password VARCHAR(255) NOT NULL,
+      points INT DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Usuario de prueba: email -> admin@vintagestore.com | password -> password123
 INSERT INTO users (user_email, user_password) VALUES 
-('admin@admin.com', '123');
+('admin@admin.com', '123', 100);  
