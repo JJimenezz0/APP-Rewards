@@ -16,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($userData && $inputPassword === $userData['user_password']) {
             $_SESSION['user_id'] = $userData['user_id'];
+            $_SESSION['user_name'] = $userData['user_name'];
             $_SESSION['user_email'] = $userData['user_email'];
             header("Location: dashboard.php");
             exit();
@@ -33,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vintage Store - Login</title>
-    <!-- Ruta absoluta basada en la raíz del servidor para evitar fallos de CSS -->
     <link rel="stylesheet" href="/APP-Rewards/assets/css/styles.css">
 </head>
 <body>
@@ -56,6 +56,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <button type="submit">Authenticate</button>
         </form>
+
+        <div class="form-footer">
+            ¿No tienes cuenta? <a href="register.php">Crea una cuenta aquí</a>
+        </div>
     </div>
 
     <script src="/APP-Rewards/assets/js/app.js"></script>
