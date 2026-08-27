@@ -29,7 +29,7 @@ body {
     background-color: var(--panel-bg);
     border: 1px solid var(--border-color);
     padding: 40px;
-    width: 350px;
+    width: 380px;
     position: relative;
     box-shadow: 0 8px 24px rgba(0,0,0,0.5);
 }
@@ -107,6 +107,28 @@ button:active {
     color: #ff7b72;
     font-size: 0.8rem;
     margin-bottom: 15px;
+}
+
+.success-message {
+    color: #56d364;
+    font-size: 0.8rem;
+    margin-bottom: 15px;
+}
+
+.form-footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.form-footer a {
+    color: var(--accent-blue);
+    text-decoration: none;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
 }
 
 .tactical-menu {
