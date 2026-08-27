@@ -33,13 +33,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vintage Store - Login</title>
+    <title>Iniciar sesión</title>
     <link rel="stylesheet" href="/APP-Rewards/assets/css/styles.css">
 </head>
 <body>
 
     <div class="login-container">
-        <h2>Secure Login</h2>
+        <h2>Iniciar sesión</h2>
         
         <?php if (!empty($errorText)): ?>
             <div class="error-message"><?php echo htmlspecialchars($errorText); ?></div>
@@ -51,10 +51,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="email" id="userEmail" name="userEmail" required>
             </div>
             <div class="form-group">
-                <label for="userPassword">Password</label>
+                <label for="userPassword">Contraseña</label>
                 <input type="password" id="userPassword" name="userPassword" required>
             </div>
-            <button type="submit">Authenticate</button>
+            <button type="submit">Enviar</button>
         </form>
 
         <div class="form-footer">
