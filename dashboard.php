@@ -17,12 +17,19 @@ if (!isset($_SESSION['user_id'])) {
 <body style="flex-direction: column; justify-content: flex-start; padding: 20px;">
 
     <!-- Menú táctico superior estilo Arc Raiders -->
-    <nav class="tactical-menu">
-        <a href="dashboard.php" class="menu-item active">Inventory</a>
-        <a href="#" class="menu-item">Logbook</a>
-        <a href="#" class="menu-item">System</a>
-        <a href="logout.php" class="menu-item" style="color: #ff7b72; margin-left: auto;">Disconnect</a>
-    </nav>
+   <nav class="tactical-menu"> 
+    <a href="dashboard.php" class="menu-item active">Inventario</a>
+
+    <a href="rewards.php" class="menu-item">Recompensas</a>
+
+    <a href="#" class="menu-item">Registro</a>
+
+    <a href="#" class="menu-item">Sistema</a>
+
+    <a href="logout.php" class="menu-item" style="color: #ff7b72; margin-left: auto;">
+        Cerrar sesión
+    </a>
+</nav>
 
     <div style="margin-top: 40px; text-align: center;">
         <h2 style="color: var(--accent-white);">Main Inventory Stash</h2>
