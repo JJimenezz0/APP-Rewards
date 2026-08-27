@@ -61,11 +61,9 @@ $pointsValue = $points * 100;
     <nav class="tactical-menu">
         <a href="dashboard.php" class="menu-item">Inventario</a>
         <a href="rewards.php" class="menu-item active">Recompensas</a>
-        <a href="#" class="menu-item">Registro</a>
-        <a href="#" class="menu-item">Sistema</a>
         <a href="logout.php" class="menu-item"
-           style="color: #ff7b72; margin-left: auto;">
-            Cerrar sesión
+            style="color: #ff7b72; margin-left: auto;">
+             Cerrar sesión
         </a>
     </nav>
 
