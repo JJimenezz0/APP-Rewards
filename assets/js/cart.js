@@ -8,16 +8,13 @@ const products = [
     { id: 6, name: "Chaqueta de Cuero Vintage",   price: 180000, points: 180, img: "https://www.camyr.com/wp-content/uploads/2026/05/Chaqueta-Aviadora-en-Gamuza-de-Cuero-Hombre-Chocolate-H424-CAMYR.png" }
 ];
 
-const cart = {}; // { productId: qty }
+const cart = {};
 
-function formatCOP(value) {
-    return "$" + value.toLocaleString("es-CO");
-}
+const formatCOP = (val) => "$" + val.toLocaleString("es-CO");
 
 function renderProducts() {
     const grid = document.getElementById("productGrid");
     if (!grid) return;
-
     grid.innerHTML = products.map(p => `
         <div class="product-card">
             <img src="${p.img}" alt="${p.name}">
@@ -29,14 +26,14 @@ function renderProducts() {
     `).join("");
 }
 
-function addToCart(productId) {
-    cart[productId] = (cart[productId] || 0) + 1;
+function addToCart(id) {
+    cart[id] = (cart[id] || 0) + 1;
     renderCart();
     toggleCart(true);
 }
 
-function removeFromCart(productId) {
-    delete cart[productId];
+function removeFromCart(id) {
+    delete cart[id];
     renderCart();
 }
 
@@ -45,33 +42,27 @@ function renderCart() {
     if (!itemsContainer) return;
 
     const entries = Object.entries(cart);
+    let totalPrice = 0, totalPoints = 0, totalItems = 0;
 
     if (entries.length === 0) {
         itemsContainer.innerHTML = '<p class="empty-cart-msg" id="emptyCartMsg">Aún no has añadido items.</p>';
     } else {
         itemsContainer.innerHTML = entries.map(([id, qty]) => {
-            const product = products.find(p => p.id === parseInt(id));
+            const p = products.find(prod => prod.id === parseInt(id));
+            totalPrice += p.price * qty;
+            totalPoints += p.points * qty;
+            totalItems += qty;
             return `
                 <div class="cart-item">
                     <div class="cart-item-info">
-                        <span>${product.name}</span>
-                        <span class="cart-item-qty">x${qty} · ${formatCOP(product.price * qty)}</span>
+                        <span>${p.name}</span>
+                        <span class="cart-item-qty">x${qty} · ${formatCOP(p.price * qty)}</span>
                     </div>
-                    <button type="button" class="cart-item-remove" onclick="removeFromCart(${product.id})">✕</button>
+                    <button type="button" class="cart-item-remove" onclick="removeFromCart(${p.id})">✕</button>
                 </div>
             `;
         }).join("");
     }
-
-    let totalPrice = 0;
-    let totalPoints = 0;
-    let totalItems = 0;
-    entries.forEach(([id, qty]) => {
-        const product = products.find(p => p.id === parseInt(id));
-        totalPrice += product.price * qty;
-        totalPoints += product.points * qty;
-        totalItems += qty;
-    });
 
     document.getElementById("cartTotalPrice").textContent = formatCOP(totalPrice);
     document.getElementById("cartTotalPoints").textContent = totalPoints + " ⭐";
@@ -89,8 +80,8 @@ function payCart() {
     if (entries.length === 0) return;
 
     const cartData = entries.map(([id, qty]) => {
-        const product = products.find(p => p.id === parseInt(id));
-        return { id: product.id, name: product.name, price: product.price, points: product.points, qty: qty };
+        const p = products.find(prod => prod.id === parseInt(id));
+        return { id: p.id, name: p.name, price: p.price, points: p.points, qty };
     });
 
     const form = document.createElement("form");

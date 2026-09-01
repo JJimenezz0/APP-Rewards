@@ -5,26 +5,17 @@ require_once 'db_connection.php';
 $errorText = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $inputEmail = trim($_POST['userEmail'] ?? '');
-    $inputPassword = $_POST['userPassword'] ?? '';
+    $stmt = $pdoConnection->prepare("SELECT * FROM users WHERE user_email = ? AND user_password = ?");
+    $stmt->execute([$_POST['userEmail'] ?? '', $_POST['userPassword'] ?? '']);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if (!empty($inputEmail) && !empty($inputPassword)) {
-        $sqlQuery = "SELECT * FROM users WHERE user_email = :email";
-        $statement = $pdoConnection->prepare($sqlQuery);
-        $statement->execute(['email' => $inputEmail]);
-        $userData = $statement->fetch(PDO::FETCH_ASSOC);
-
-        if ($userData && $inputPassword === $userData['user_password']) {
-            $_SESSION['user_id'] = $userData['user_id'];
-            $_SESSION['user_name'] = $userData['user_name'];
-            $_SESSION['user_email'] = $userData['user_email'];
-            header("Location: dashboard.php");
-            exit();
-        } else {
-            $errorText = "Invalid credentials. Access denied.";
-        }
+    if ($user) {
+        $_SESSION['user_id'] = $user['user_id'];
+        $_SESSION['user_name'] = $user['user_name'];
+        header("Location: dashboard.php");
+        exit();
     } else {
-        $errorText = "Please fill in all fields.";
+        $errorText = "Correo o contraseña incorrectos.";
     }
 }
 ?>
@@ -32,12 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar sesión</title>
     <link rel="stylesheet" href="/APP-Rewards/assets/css/styles.css">
 </head>
 <body>
-
     <div class="login-container">
         <h2>Iniciar sesión</h2>
         
@@ -45,23 +34,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="error-message"><?php echo htmlspecialchars($errorText); ?></div>
         <?php endif; ?>
 
-        <form action="index.php" method="POST" id="loginForm">
+        <form method="POST">
             <div class="form-group">
-                <label for="userEmail">Email</label>
-                <input type="email" id="userEmail" name="userEmail" required>
+                <label>Email</label>
+                <input type="email" name="userEmail" required>
             </div>
             <div class="form-group">
-                <label for="userPassword">Contraseña</label>
-                <input type="password" id="userPassword" name="userPassword" required>
+                <label>Contraseña</label>
+                <input type="password" name="userPassword" required>
             </div>
-            <button type="submit">Enviar</button>
+            <button type="submit">Entrar</button>
         </form>
-
-        <div class="form-footer">
-            ¿No tienes cuenta? <a href="register.php">Crea una cuenta aquí</a>
-        </div>
+        <div class="form-footer"><a href="register.php">Registrarse</a></div>
     </div>
-
-    <script src="/APP-Rewards/assets/js/app.js"></script>
 </body>
 </html>
