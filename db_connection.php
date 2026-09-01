@@ -1,12 +1,6 @@
 <?php
-$dbHost = 'localhost';
-$dbName = 'vintage_store_db';
-$dbUser = 'root';
-$dbPassword = '';
-
 try {
-    $pdoConnection = new PDO("mysql:host=$dbHost;dbname=$dbName;charset=utf8mb4", $dbUser, $dbPassword);
-    $pdoConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdoConnection = new PDO("mysql:host=localhost;dbname=vintage_store_db;charset=utf8mb4", "root", "");
 } catch (PDOException $e) {
-    die("Database connection failed: " . $e->getMessage());
+    die($e->getMessage());
 }
